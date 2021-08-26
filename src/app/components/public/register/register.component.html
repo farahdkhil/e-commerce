@@ -17,36 +17,56 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                                     </div>
-                                    <form class="user">
+                                    <form class="user" [formGroup]="registerForm" (ngSubmit)="register()">
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                                                <input formControlName="firstname" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                                                <div *ngIf="myfirstname?.touched && myfirstname?.invalid">
+                                                    <small *ngIf="myfirstname?.errors?.required" class="text-danger">Firstname is required</small>
+                                                    <small *ngIf="myfirstname?.errors?.pattern" class="text-danger">Invalid Firstname</small>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                                                <input formControlName="lastname" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                                                <div *ngIf="mylastname?.touched && mylastname?.invalid">
+                                                    <small *ngIf="mylastname?.errors?.required" class="text-danger">lastname is required</small>
+                                                    <small *ngIf="mylastname?.errors?.pattern" class="text-danger">Invalid lastname</small>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <input type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                                            <input formControlName="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
+                                            <div *ngIf="myemail?.touched && myemail?.invalid">
+                                                <small *ngIf="myemail?.errors?.required" class="text-danger">Email is required</small>
+                                                <small *ngIf="myemail?.errors?.email" class="text-danger">Invalid Email</small>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-sm-6 mb-3 mb-sm-0">
-                                                <input type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                                <input formControlName="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                                <div *ngIf="mypassword?.touched && mypassword?.invalid">
+                                                    <small *ngIf="mypassword?.errors?.required" class="text-danger">Password is required</small>
+                                                    <small *ngIf="mypassword?.errors?.minlength" class="text-danger">Invalid Password</small>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
-                                                <input type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                                                <input formControlName="confirmPassword" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
+                                                <div *ngIf="myconfirmPassword?.touched && myconfirmPassword?.invalid">
+                                                    <small *ngIf="myconfirmPassword?.errors?.required" class="text-danger">Password is
+                                                        required</small>
+                                                </div>
                                             </div>
                                         </div>
                                         <a href="./../index.html" class="btn btn-primary btn-user btn-block">
                         Register Account
                       </a>
-                                        <hr>
+                                        <!--  <hr>
                                         <a href="index.html" class="btn btn-google btn-user btn-block">
                                             <i class="fab fa-google fa-fw"></i> Register with Google
                                         </a>
                                         <a href="index.html" class="btn btn-facebook btn-user btn-block">
                                             <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
-                                        </a>
+                                        </a> -->
                                     </form>
                                     <hr>
                                     <div class="text-center">

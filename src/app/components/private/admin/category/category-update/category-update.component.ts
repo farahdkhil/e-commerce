@@ -8,31 +8,22 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./category-update.component.css']
 })
 export class CategoryUpdateComponent implements OnInit {
-  UpdateNameForm!: FormGroup;
-
-  constructor(
-    private fb: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router,
-  ) {
-
+      myForm!: FormGroup;
+  constructor(private fb: FormBuilder) {
     let formControls = {
       name: new FormControl('', [
         Validators.required,
         Validators.pattern("[A-Za-z .'-]+"),
         Validators.minLength(2)
-      ]),
+      ])
+
     }
-
-    this.UpdateNameForm = this.fb.group(formControls)
+    this.myForm = this.fb.group(formControls);
   }
-
-  get name() { return this.UpdateNameForm.get('name') }
-
-
+  get name() { return this.myForm.get('name') }
   ngOnInit(): void {
   }
-
   updateName() {
+    console.log(this.myForm.value);
   }
 }

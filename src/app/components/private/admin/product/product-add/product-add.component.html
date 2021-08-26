@@ -30,33 +30,53 @@
                     </div>
 
                     <div class="card-body">
-                        <form>
+                        <form [formGroup]="myForm" (ngSubmit)="addProduct()">
                             <div class="form-group">
                                 <label for="name" id="name">Name : </label>
-                                <input type="text" class="form-control">
+                                <input formControlName="name" type="text" class="form-control">
+                                <div *ngIf="name?.touched && name?.invalid">
+                                    <small *ngIf="name?.errors?.required" class="text-danger">name is required</small>
+                                    <small *ngIf="name?.errors?.name" class="text-danger">Invalid name</small>
+                                </div>
                             </div>
                             <div>
                                 <div class="form-group">
                                     <label for="description" id="desc">Description : </label>
-                                    <input type="text" class="form-control">
+                                    <input formControlName="description" type="text" class="form-control">
+                                    <div *ngIf="description?.touched && description?.invalid">
+                                        <small *ngIf="description?.errors?.required" class="text-danger">description is required</small>
+                                        <small *ngIf="description?.errors?.description" class="text-danger">Invalid description</small>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="price" id="price">Price : </label>
-                                    <input type="number" class="form-control">
+                                    <input formControlName="price" type="number" class="form-control">
+                                    <div *ngIf="price?.touched && price?.invalid">
+                                        <small *ngIf="price?.errors?.required" class="text-danger">price is required</small>
+                                        <small *ngIf="price?.errors?.price" class="text-danger">Invalid price</small>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="photo" id="name">Image : </label>
-                                    <input type="file" class="form-control-file">
+                                    <input formControlName="photo" type="file" class="form-control-file">
+                                    <!-- <div *ngIf="photo?.touched">
+                                        <small *ngIf="photo?.errors?.required" class="text-danger">photo is required</small>
+
+                                    </div> -->
                                 </div>
                                 <div class="form-group">
                                     <label for="category" id="price">Category : </label>
-                                    <select class="custom-select">
+                                    <select formControlName="category" class="custom-select">
                                     <option selected>Choose category</option>
                                     <option>Smartphones</option>
                                     <option>Laptops</option>
                                      </select>
+                                    <div *ngIf="category?.touched">
+                                        <small *ngIf="category?.errors?.required" class="text-danger">category is required</small>
+
+                                    </div>
                                 </div>
-                                <button class="btn btn-sm btn-primary mt-3">Add</button>
+                                <button class="btn btn-sm btn-primary mt-3" [disabled]="myForm.invalid">Add</button>
                             </div>
                         </form>
 

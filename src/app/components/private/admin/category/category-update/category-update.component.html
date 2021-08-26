@@ -30,20 +30,20 @@
                     </div>
 
                     <div class="card-body">
-                        <form [formGroup]="UpdateNameForm" (ngSubmit)="updateName()">
-                            <div class="form-group">
-                                <label for="name" id="name">Name : </label>
-                                <input type="text" class="form-control form-control-sm" formControlName="name">
-                                <div *ngIf="name?.touched && name?.invalid">
-                                    <small *ngIf="name?.errors?.required" class="text-danger">Name is required</small><br>
-                                    <small *ngIf="name?.errors?.pattern" class="text-danger">Invalid Name</small><br>
-                                    <small *ngIf="name?.errors?.minlenght" class="text-danger">name must contains two charactter at least</small>
+                        <form [formGroup]="myForm" (ngSubmit)="updateName()">
+                            <div class="form row">
+                                <div class="form-group">
+                                    <label for="name" id="name">Name : </label>
+                                    <input type="text" class="form-control form-control-sm" formControlName="name">
+                                    <div *ngIf="name?.touched && name?.invalid">
+                                        <small *ngIf="name?.errors?.required" class="text-danger">Name is required</small><br>
+                                        <small *ngIf="name?.errors?.pattern" class="text-danger">Invalid Name</small><br>
+                                        <small *ngIf="name?.errors?.minlenght" class="text-danger">name must contains two charactter at least</small>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="form-row">
-
-                                <button type="submit" value="Update name" [disabled]="UpdateNameForm.invalid" class="btn btn-warning">Update</button>
-
+                            <div class="form row">
+                                <button class="btn btn-sm btn-warning mt-3" type="submit" [disabled]="myForm.invalid">Update</button>
                             </div>
                         </form>
                     </div>
