@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-register',
@@ -13,9 +13,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-   
-    private router:Router,
-    
+       
     ) {
 
     let registerFormInputs = {
@@ -63,13 +61,7 @@ export class RegisterComponent implements OnInit {
   register() {
     let data = this.registerForm.value;
 
-    /* let user = new User(
-      data.firstname,
-      data.lastname,
-      data.email,
-      data.phone,
-      data.password,
-    ); */
+    
   }
 
 }
