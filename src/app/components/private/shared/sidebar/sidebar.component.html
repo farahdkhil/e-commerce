@@ -22,22 +22,22 @@
     <hr class="sidebar-divider">
     <!-- Admin items -->
 
-    <li class="nav-item">
+    <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" [routerLink]="['/category-list']" routerLinkActive="router-link-active">
             <i class="fab fa-elementor"></i>
             <span>Categories Management</span></a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" [routerLink]="['/product-list']">
             <i class="fab fa-product-hunt"></i>
             <span>Products Management</span></a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" [routerLink]="['/client-management']">
             <i class="fas fa-fw fa-users"></i>
             <span>Clients Management</span></a>
     </li>
-    <li class="nav-item">
+    <li *ngIf="isAdmin" class="nav-item">
         <a class="nav-link" [routerLink]="['/orders-management']">
             <i class="fas fa-fw fa-tasks"></i>
             <span>Orders Management</span></a>
@@ -46,7 +46,7 @@
 
     <!-- Clients items -->
 
-    <li class="nav-item">
+    <li *ngIf="isClient" class="nav-item">
         <a class="nav-link" [routerLink]="['/my-orders']">
             <i class="fas fa-fw fa-tasks"></i>
             <span>My orders</span></a>

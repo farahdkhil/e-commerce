@@ -17,7 +17,7 @@
                     <a class="nav-link" href="#">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
+                    <a *ngIf="isLoggedIn" class="nav-link" [routerLink]="['/dashboard']">Dashboard</a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="./cart.html">
@@ -26,13 +26,13 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-info mt-1" [routerLink]="['/login']">Login</a>
+                    <a *ngIf="!isLoggedIn" class="btn btn-sm btn-info mt-1" [routerLink]="['/login']">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-light mx-3 mt-1" [routerLink]="['/register']">Register</a>
+                    <a *ngIf="!isLoggedIn" class="btn btn-sm btn-light mx-3 mt-1" [routerLink]="['/register']">Register</a>
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-sm btn-danger mt-1" [routerLink]="['/']">Logout</a>
+                    <a *ngIf="isLoggedIn" style="color: aliceblue;" class="btn btn-sm btn-danger mt-1" (click)="logout()">Logout</a>
                 </li>
             </ul>
         </div>

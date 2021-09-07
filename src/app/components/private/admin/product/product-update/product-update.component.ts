@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Category } from 'src/app/models/category';
+import { Product } from 'src/app/models/product';
+import { CategoryService } from 'src/app/services/category/category.service';
+import { ProductService } from 'src/app/services/product/product.service';
 
 @Component({
   selector: 'app-product-update',
@@ -8,45 +13,72 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 export class ProductUpdateComponent implements OnInit {
 
-  myForm: FormGroup;
-  constructor(private fb: FormBuilder) {
+  updateProductForm: FormGroup
+  categories:Category[]=[]
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute, 
+    private productService: ProductService,
+    private CategoryService:CategoryService,private router:Router) {
+
     let formControls = {
       name: new FormControl('', [
         Validators.required,
-        Validators.pattern("[A-Za-z .'-]+"),
         Validators.minLength(2)
       ]),
       description: new FormControl('', [
         Validators.required,
-        Validators.pattern("[A-Za-z .'-]+"),
         Validators.minLength(2)
       ]),
       price: new FormControl('', [
         Validators.required,
-        Validators.pattern("[0-9]+"),
-        Validators.minLength(2)
-      ]),
-      photo: new FormControl('', [
-        Validators.required,
-        
+        Validators.pattern("[0-9]+")
       ]),
       category: new FormControl('', [
-        Validators.required,
+        Validators.required
+      ]),
+      image: new FormControl('', [
         
       ])
-
     }
-    this.myForm = this.fb.group(formControls);
+
+    this.updateProductForm = this.fb.group(formControls)
   }
-  get name() { return this.myForm.get('name') }
-  get description() { return this.myForm.get('description') }
-  get price() { return this.myForm.get('price') }
-  get category() { return this.myForm.get('category') }
+
+  get name() { return this.updateProductForm.get('name') }
+  get description() { return this.updateProductForm.get('description') }
+  get price() { return this.updateProductForm.get('price') }
+  get category() { return this.updateProductForm.get('category') }
+  get image() { return this.updateProductForm.get('image') }
+
   ngOnInit(): void {
-   
+    this.CategoryService.getAllCategories().subscribe(
+      (res : any)=>this.categories=res,
+      err=>console.log(err)
+    )
+    this.productService.getOne(this.route.snapshot.params.id).subscribe(
+      (res : any) => {        
+        this.updateProductForm.patchValue({
+          name: res.name,
+          description: res.description,
+          price: res.price, 
+          category: res.category?.id,
+          image: res.imageUrl
+    
+        })
+      },
+      (err : any) => console.log(err)
+    )
+    
   }
-  updateProduct(){
-    let data = this.myForm.value ;
-    console.log(data); 
+
+  updateProduct() {
+    let data = this.updateProductForm.value;
+    let product=new Product(this.route.snapshot.params.id,data.name,data.description,data.image,data.price,new Category(data.category))
+    this.productService.updateProduct(product).subscribe(
+      res=>this.router.navigateByUrl("/product-list"),
+      err=>console.log(err)
+      
+    )
   }
 }

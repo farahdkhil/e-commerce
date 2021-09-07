@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user/user.service';
+
 
 @Component({
   selector: 'app-login',
@@ -10,7 +14,10 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb : FormBuilder) {
+  constructor( private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService) {
 
     let loginFormInputs = {
       email: new FormControl("",[
@@ -20,7 +27,7 @@ export class LoginComponent implements OnInit {
 
       password: new FormControl("",[
         Validators.required,
-        Validators.minLength(8)
+        Validators.minLength(2)
       ])
     }
 
@@ -32,11 +39,38 @@ export class LoginComponent implements OnInit {
   get mypassword() { return this.loginForm.get('password'); }
 
   ngOnInit(): void {
+    let isLoggedIn = this.userService.isLoggedIn();
+
+    if (isLoggedIn) {
+      this.router.navigate(['/']);
+    } 
   }
 
   login(){
     let data = this.loginForm.value ;
     console.log(data); 
+   
+
+    let user = new User(undefined,
+      undefined,
+      data.email,
+      undefined,
+      data.password,
+     );
+
+    this.userService.loginAdmin(user).subscribe(
+      (res: any) => {
+        console.log(res);
+        let token = res.token;
+
+        localStorage.setItem("myToken", token);
+        this.router.navigate(['/']);
+      },
+      (err: any) => {
+        console.log(err);
+
+      }
+    )
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user/user.service';
 
 
 @Component({
@@ -13,6 +15,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private router: Router,
+    private userService: UserService
        
     ) {
 
@@ -56,6 +60,11 @@ export class RegisterComponent implements OnInit {
   get myconfirmPassword() { return this.registerForm.get('confirmPassword'); }
 
   ngOnInit(): void {
+    let isLoggedIn = this.userService.isLoggedIn();
+
+    if (isLoggedIn) {
+      this.router.navigate(['/']);
+    } 
   }
 
   register() {

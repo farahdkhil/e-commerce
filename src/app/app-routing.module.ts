@@ -1,5 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 import { CategoryAddComponent } from './components/private/admin/category/category-add/category-add.component';
 import { CategoryListComponent } from './components/private/admin/category/category-list/category-list.component';
 import { CategoryUpdateComponent } from './components/private/admin/category/category-update/category-update.component';
@@ -15,6 +16,8 @@ import { DashboardComponent } from './components/private/shared/dashboard/dashbo
 import { HomeComponent } from './components/public/home/home.component';
 import { LoginComponent } from './components/public/login/login.component';
 import { RegisterComponent } from './components/public/register/register.component';
+import { ClientGuard } from './guards/client.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 const routes: Routes = [
   {
@@ -23,7 +26,8 @@ const routes: Routes = [
   },
   {
     path:'login',
-    component:LoginComponent
+    component:LoginComponent,
+    
   },
   {
     path:'register',
@@ -31,51 +35,64 @@ const routes: Routes = [
   },
   {
     path:'dashboard',
-    component:DashboardComponent
+    component:DashboardComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'product-list',
-    component:ProductListComponent
+    component:ProductListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'client-management',
-    component:ClientManagementComponent
+    component:ClientManagementComponent,
+    canActivate:[AdminGuard]
   },
   {
     path:'orders-management',
-    component:OrdersManagementComponent
+    component:OrdersManagementComponent,
+    canActivate:[AdminGuard]
   },
   {
     path:'category-list',
-    component:CategoryListComponent
+    component:CategoryListComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'category-add',
-    component:CategoryAddComponent
+    component:CategoryAddComponent,
+    canActivate:[AdminGuard]
   },
   {
-    path:'category-update',
-    component:CategoryUpdateComponent
+    path:'category-update/:id',
+    component:CategoryUpdateComponent,
+    canActivate:[AdminGuard]
   },
   {
     path:'orders-details',
-    component:OrdersDetailsComponent
+    component:OrdersDetailsComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'product-add',
-    component:ProductAddComponent
+    component:ProductAddComponent,
+    canActivate:[AdminGuard]
   },
   {
-    path:'product-update',
-    component:ProductUpdateComponent
+    path:'product-update/:id',
+    component:ProductUpdateComponent,
+    canActivate:[AdminGuard]
   },
+
   {
     path:'my-orders',
-    component:MyOrdersComponent
+    component:MyOrdersComponent,
+    canActivate:[ClientGuard]
   },
   {
     path:'my-orders-details',
-    component:MyOrdersDetailsComponent
+    component:MyOrdersDetailsComponent,
+    canActivate:[ClientGuard]
   }
 ];
 

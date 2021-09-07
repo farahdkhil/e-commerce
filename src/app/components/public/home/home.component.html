@@ -12,11 +12,9 @@
 
             <div class="card">
                 <ul id="categories" class="list-group list-group-flush">
-                    <li style="cursor:pointer" class="list-group-item">All</li>
+                    <li style="cursor:pointer" class="list-group-item" (click)="filterByCategory(0)">all</li>
+                    <li style="cursor:pointer" class="list-group-item" *ngFor="let category of categoriesList " (click)="filterByCategory(category.id)">{{category.name}}</li>
 
-                    <li style="cursor:pointer" class="list-group-item">Smartphones</li>
-
-                    <li style="cursor:pointer" class="list-group-item">Laptops</li>
                 </ul>
             </div>
 
@@ -52,13 +50,13 @@
                 </a>
             </div>
 
-            <div id="products-list" class="row">
+            <div id="products-list" class="row" *ngFor="let product of productList">
                 <div class="col-4 mb-3">
                     <div class="card">
                         <img src="./assets/images/iphone-410324__340.webp" class="img-fluid">
                         <div class="card-body text-center">
-                            <h4 class="card-title">Iphone 4</h4>
-                            <p class="card-text">200 DT</p>
+                            <h4 class="card-title">{{product.name}}</h4>
+                            <p class="card-text">{{product.price}}</p>
                         </div>
                         <div class="card-footer">
                             <button class="btn btn-dark btn-block">
@@ -67,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-4 mb-3">
+                <!-- <div class="col-4 mb-3">
                     <div class="card">
                         <img src="./assets/images/mobile-phone-1875813_960_720.webp" class="img-fluid">
                         <div class="card-body text-center">
@@ -136,7 +134,7 @@
                         </button>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

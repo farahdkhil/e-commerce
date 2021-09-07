@@ -23,6 +23,7 @@ import { ProductUpdateComponent } from './components/private/admin/product/produ
 import { TopbarComponent } from './components/private/shared/topbar/topbar.component';
 import { ClientManagementComponent } from './components/private/admin/client-management/client-management.component';
 import { ReactiveFormsModule , FormsModule } from "@angular/forms";
+import { HttpClientModule} from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,7 +52,8 @@ import { ReactiveFormsModule , FormsModule } from "@angular/forms";
     BrowserModule,
     AppRoutingModule, 
     ReactiveFormsModule ,
-    FormsModule 
+    FormsModule ,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
